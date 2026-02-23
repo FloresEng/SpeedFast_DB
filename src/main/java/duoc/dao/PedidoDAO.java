@@ -1,0 +1,49 @@
+package duoc.dao;
+
+import duoc.conexion.ConexionBD;
+import duoc.modelo.Pedido;
+import duoc.util.EstadoPedido;
+import duoc.util.TipoPedido;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class PedidoDAO {
+
+    public void crear(Pedido p) throws SQLException{
+
+        String sqlInsert = "INSERT INTO pedidos (direccion, tipo, estado) VALUES (?, ?, ?)";
+        try(Connection conn = ConexionBD.obtenerConexion();
+            PreparedStatement stmt = conn.prepareStatement(sqlInsert)){
+            stmt.setString(1, p.getDireccion());
+            stmt.setString(2, p.getTipo().name());//.name para pasar de ENUM a String
+            stmt.setString(3, p.getEstado().name());//.name para pasar de ENUM a String
+
+            stmt.executeUpdate();
+
+        }
+    }
+
+    public List<Pedido> listar() throws SQLException{
+        List<Pedido> lista = new ArrayList<>();
+        String sqlSelect = "SELECT * FROM pedidos";
+
+        try(Connection conn = ConexionBD.obtenerConexion();
+            ResultSet rs = conn.createStatement().executeQuery(sqlSelect)){
+            while(rs.next()){
+                lista.add(new Pedido(rs.getInt("id"),
+                        rs.getString("direccion"),
+                        TipoPedido.valueOf(rs.getString("tipo")),
+                        EstadoPedido.valueOf(rs.getString("estado"))
+                ));
+            }
+        }
+        return lista;
+    }
+
+
+}
