@@ -45,5 +45,26 @@ public class PedidoDAO {
         return lista;
     }
 
+    public void borrarPedido(int id) throws SQLException{
+
+        String sqlDelete = "DELETE FROM pedidos WHERE id = ?";
+        try(Connection conn = ConexionBD.obtenerConexion();
+            PreparedStatement stmt = conn.prepareStatement(sqlDelete)){
+            stmt.setInt(1,id);
+
+            stmt.executeUpdate();
+        }
+    }
+
+    public void actualizarEstado(int id, EstadoPedido nuevoEstado, Connection conn) throws SQLException{
+
+        String sqlUpdate = "UPDATE pedidos SET estado = ? WHERE id = ?";
+        try(PreparedStatement ps = conn.prepareStatement(sqlUpdate)){
+            ps.setString(1, nuevoEstado.name());
+            ps.setInt(2, id);
+            ps.executeUpdate();
+        }
+    }
+
 
 }

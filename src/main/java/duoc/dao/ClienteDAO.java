@@ -18,7 +18,7 @@ public class ClienteDAO {
         try(Connection conn = ConexionBD.obtenerConexion();
             PreparedStatement stmt = conn.prepareStatement(sqlInsert)){
             stmt.setString(1, c.getNombre());
-            stmt.setString(1, c.getTelefono());
+            stmt.setString(2, c.getTelefono());
 
             stmt.executeUpdate();
         }
@@ -37,6 +37,29 @@ public class ClienteDAO {
             }
         }
         return lista;
+    }
+
+    public void borrarCliente(int id) throws SQLException{
+
+        String sqlDelete = "DELETE FROM clientes WHERE id = ?";
+        try(Connection conn = ConexionBD.obtenerConexion();
+            PreparedStatement stmt = conn.prepareStatement(sqlDelete)){
+            stmt.setInt(1, id);
+
+            stmt.executeUpdate();
+        }
+    }
+
+    public void actualizarTelefono(int id, String telefono) throws SQLException{
+
+        String sqlUpdate = "UPDATE clientes SET telefono = ? WHERE id = ?";
+        try(Connection conn = ConexionBD.obtenerConexion();
+            PreparedStatement stmt = conn.prepareStatement(sqlUpdate)){
+            stmt.setInt(1,id);
+            stmt.setString(2,telefono);
+
+            stmt.executeUpdate();
+        }
     }
 
 }

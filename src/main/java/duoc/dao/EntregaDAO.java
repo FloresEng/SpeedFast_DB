@@ -1,6 +1,7 @@
 package duoc.dao;
 
 import duoc.conexion.ConexionBD;
+import duoc.util.EstadoPedido;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,6 +11,7 @@ public class EntregaDAO {
 
     public void registrarEntrega(int idPedido, int idRepartidor) throws SQLException{
         Connection conn = ConexionBD.obtenerConexion();
+        PedidoDAO pediDao = new PedidoDAO();
 
         try{
             conn.setAutoCommit(false);//quitamos el autocommit para registrar la entrega y cambiar el estado
@@ -22,14 +24,28 @@ public class EntregaDAO {
             }
 
             //actualizar estado pedido
-            String sqlEstado = "UPDATE pedidos SET estado = 'EN_REPARTO' WHERE id = ?";
-            try(PreparedStatement ps = conn.prepareStatement(sqlEstado)){
-                ps.setInt(1, idPedido);
-                ps.executeUpdate();
-            }
+            pediDao.actualizarEstado(idPedido, EstadoPedido.EN_REPARTO, conn);
+
             conn.commit();
         }catch (SQLException e){
             conn.rollback();//si falla, deshacemos
+            throw e;
+        }finally {
+            conn.close();
+        }
+    }
+
+    public void finalizarEntrega(int idPedido) throws SQLException{
+        Connection conn = ConexionBD.obtenerConexion();
+        PedidoDAO pediDao = new PedidoDAO();
+
+        try {
+            conn.setAutoCommit(false);
+            pediDao.actualizarEstado(idPedido, EstadoPedido.ENTREGADO, conn);
+
+            conn.commit();
+        }catch (SQLException e){
+            conn.rollback();
             throw e;
         }finally {
             conn.close();
