@@ -31,8 +31,8 @@ public class ControladorPedido {
     }
 
     public String borrar(int id){
-        if (id < 0)
-            return "Debe especificar ID del pedido a borrar";
+        if (id <= 0)
+            return "Debe especificar ID del pedido a borrar.";
         try{
             pediDao.borrarPedido(id);
             return "Pedido borrado con éxito.";

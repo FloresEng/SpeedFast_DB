@@ -28,4 +28,15 @@ public class ControladorCliente {
             return null;
         }
     }
+
+    public String eliminarCliente (int id){
+        if (id <= 0)
+            return "Debe especificar ID del cliente a borrar.";
+        try{
+            clienDao.borrarCliente(id);
+            return "Cliente borrado con éxito de la base de datos.";
+        }catch (Exception e){
+            return "¡ERROR! "+ e.getMessage();
+        }
+    }
 }
