@@ -3,6 +3,8 @@ package duoc.dao;
 import duoc.conexion.ConexionBD;
 import duoc.modelo.Pedido;
 import duoc.util.EstadoPedido;
+import duoc.util.InterfazActualizar;
+import duoc.util.InterfazCRUD;
 import duoc.util.TipoPedido;
 
 import java.sql.Connection;
@@ -12,7 +14,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PedidoDAO {
+public class PedidoDAO implements InterfazCRUD<Pedido>, InterfazActualizar<EstadoPedido> {
+
 
     public void crear(Pedido p) throws SQLException{
 
@@ -27,6 +30,7 @@ public class PedidoDAO {
 
         }
     }
+
 
     public List<Pedido> listar() throws SQLException{
         List<Pedido> lista = new ArrayList<>();
@@ -45,7 +49,7 @@ public class PedidoDAO {
         return lista;
     }
 
-    public void borrarPedido(int id) throws SQLException{
+    public void borrar(int id) throws SQLException{
 
         String sqlDelete = "DELETE FROM pedidos WHERE id = ?";
         try(Connection conn = ConexionBD.obtenerConexion();
@@ -56,7 +60,7 @@ public class PedidoDAO {
         }
     }
 
-    public void actualizarEstado(int id, EstadoPedido nuevoEstado, Connection conn) throws SQLException{
+    public void actualizar(int id, EstadoPedido nuevoEstado, Connection conn) throws SQLException{
 
         String sqlUpdate = "UPDATE pedidos SET estado = ? WHERE id = ?";
         try(PreparedStatement ps = conn.prepareStatement(sqlUpdate)){

@@ -34,7 +34,7 @@ public class ControladorPedido {
         if (id <= 0)
             return "Debe especificar ID del pedido a borrar.";
         try{
-            pediDao.borrarPedido(id);
+            pediDao.borrar(id);
             return "Pedido borrado con éxito.";
         }catch (Exception e){
             return "¡ERROR!: "+e.getMessage();

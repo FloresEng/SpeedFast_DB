@@ -2,6 +2,8 @@ package duoc.dao;
 
 import duoc.conexion.ConexionBD;
 import duoc.modelo.Cliente;
+import duoc.util.InterfazActualizar;
+import duoc.util.InterfazCRUD;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,9 +12,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClienteDAO {
+public class ClienteDAO implements InterfazCRUD<Cliente>, InterfazActualizar<String> {
 
-    public void registrarCliente(Cliente c) throws SQLException{
+    public void crear(Cliente c) throws SQLException{
 
         String sqlInsert = "INSERT INTO clientes (nombre, telefono) VALUES (?, ?)";
         try(Connection conn = ConexionBD.obtenerConexion();
@@ -39,7 +41,7 @@ public class ClienteDAO {
         return lista;
     }
 
-    public void borrarCliente(int id) throws SQLException{
+    public void borrar(int id) throws SQLException{
 
         String sqlDelete = "DELETE FROM clientes WHERE id = ?";
         try(Connection conn = ConexionBD.obtenerConexion();
@@ -50,11 +52,10 @@ public class ClienteDAO {
         }
     }
 
-    public void actualizarTelefono(int id, String telefono) throws SQLException{
+    public void actualizar(int id, String telefono, Connection conn) throws SQLException{
 
         String sqlUpdate = "UPDATE clientes SET telefono = ? WHERE id = ?";
-        try(Connection conn = ConexionBD.obtenerConexion();
-            PreparedStatement stmt = conn.prepareStatement(sqlUpdate)){
+        try(PreparedStatement stmt = conn.prepareStatement(sqlUpdate)){
             stmt.setInt(1,id);
             stmt.setString(2,telefono);
 
