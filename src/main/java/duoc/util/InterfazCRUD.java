@@ -14,6 +14,4 @@ public interface InterfazCRUD<T> {
     //Eliminar
     void borrar(int id) throws SQLException;
 
-
-
 }

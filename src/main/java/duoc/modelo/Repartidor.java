@@ -26,6 +26,6 @@ public class Repartidor {
 
     @Override
     public String toString() {
-        return "ID Repartidor: "+ id +"\nNombre: "+nombre;
+        return nombre;
     }
 }

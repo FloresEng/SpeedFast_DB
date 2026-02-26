@@ -24,7 +24,7 @@ public class EntregaDAO {
             }
 
             //actualizar estado pedido
-            pediDao.actualizarEstado(idPedido, EstadoPedido.EN_REPARTO, conn);
+            pediDao.actualizar(idPedido, EstadoPedido.EN_REPARTO, conn);
 
             conn.commit();
         }catch (SQLException e){
@@ -41,7 +41,7 @@ public class EntregaDAO {
 
         try {
             conn.setAutoCommit(false);
-            pediDao.actualizarEstado(idPedido, EstadoPedido.ENTREGADO, conn);
+            pediDao.actualizar(idPedido, EstadoPedido.ENTREGADO, conn);
 
             conn.commit();
         }catch (SQLException e){

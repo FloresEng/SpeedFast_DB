@@ -56,8 +56,8 @@ public class ClienteDAO implements InterfazCRUD<Cliente>, InterfazActualizar<Str
 
         String sqlUpdate = "UPDATE clientes SET telefono = ? WHERE id = ?";
         try(PreparedStatement stmt = conn.prepareStatement(sqlUpdate)){
-            stmt.setInt(1,id);
-            stmt.setString(2,telefono);
+            stmt.setString(1,telefono);
+            stmt.setInt(2,id);
 
             stmt.executeUpdate();
         }

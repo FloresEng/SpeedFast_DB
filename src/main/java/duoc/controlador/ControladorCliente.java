@@ -13,7 +13,7 @@ public class ControladorCliente {
         if (nombre.trim().isEmpty() || telefono.trim().isEmpty())
             return "Ambos campos son obligatorios para el registro.";
         try{
-            clienDao.registrarCliente(new Cliente(nombre, telefono));
+            clienDao.crear(new Cliente(nombre, telefono));
             return "Cliente registrado con éxito.";
         }catch (Exception e){
             return "¡ERROR!: " + e.getMessage();
@@ -33,7 +33,7 @@ public class ControladorCliente {
         if (id <= 0)
             return "Debe especificar ID del cliente a borrar.";
         try{
-            clienDao.borrarCliente(id);
+            clienDao.borrar(id);
             return "Cliente borrado con éxito de la base de datos.";
         }catch (Exception e){
             return "¡ERROR! "+ e.getMessage();
