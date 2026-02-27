@@ -14,6 +14,7 @@ import java.util.List;
 
 public class ClienteDAO implements InterfazCRUD<Cliente>, InterfazActualizar<String> {
 
+    @Override
     public void crear(Cliente c) throws SQLException{
 
         String sqlInsert = "INSERT INTO clientes (nombre, telefono) VALUES (?, ?)";
@@ -26,6 +27,7 @@ public class ClienteDAO implements InterfazCRUD<Cliente>, InterfazActualizar<Str
         }
     }
 
+    @Override
     public List<Cliente> listar() throws SQLException{
         List<Cliente> lista = new ArrayList<>();
         String sqlSelect = "SELECT * FROM clientes";
@@ -41,6 +43,7 @@ public class ClienteDAO implements InterfazCRUD<Cliente>, InterfazActualizar<Str
         return lista;
     }
 
+    @Override
     public void borrar(int id) throws SQLException{
 
         String sqlDelete = "DELETE FROM clientes WHERE id = ?";
@@ -52,6 +55,7 @@ public class ClienteDAO implements InterfazCRUD<Cliente>, InterfazActualizar<Str
         }
     }
 
+    @Override
     public void actualizar(int id, String telefono, Connection conn) throws SQLException{
 
         String sqlUpdate = "UPDATE clientes SET telefono = ? WHERE id = ?";

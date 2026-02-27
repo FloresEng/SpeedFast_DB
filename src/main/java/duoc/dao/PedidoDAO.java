@@ -16,7 +16,7 @@ import java.util.List;
 
 public class PedidoDAO implements InterfazCRUD<Pedido>, InterfazActualizar<EstadoPedido> {
 
-
+    @Override
     public void crear(Pedido p) throws SQLException{
 
         String sqlInsert = "INSERT INTO pedidos (direccion, tipo, estado) VALUES (?, ?, ?)";
@@ -31,7 +31,7 @@ public class PedidoDAO implements InterfazCRUD<Pedido>, InterfazActualizar<Estad
         }
     }
 
-
+    @Override
     public List<Pedido> listar() throws SQLException{
         List<Pedido> lista = new ArrayList<>();
         String sqlSelect = "SELECT * FROM pedidos";
@@ -49,6 +49,7 @@ public class PedidoDAO implements InterfazCRUD<Pedido>, InterfazActualizar<Estad
         return lista;
     }
 
+    @Override
     public void borrar(int id) throws SQLException{
 
         String sqlDelete = "DELETE FROM pedidos WHERE id = ?";
@@ -60,6 +61,7 @@ public class PedidoDAO implements InterfazCRUD<Pedido>, InterfazActualizar<Estad
         }
     }
 
+    @Override
     public void actualizar(int id, EstadoPedido nuevoEstado, Connection conn) throws SQLException{
 
         String sqlUpdate = "UPDATE pedidos SET estado = ? WHERE id = ?";
@@ -69,6 +71,4 @@ public class PedidoDAO implements InterfazCRUD<Pedido>, InterfazActualizar<Estad
             ps.executeUpdate();
         }
     }
-
-
 }
