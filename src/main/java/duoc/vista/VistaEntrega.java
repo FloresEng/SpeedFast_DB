@@ -54,6 +54,7 @@ public class VistaEntrega extends JFrame {
                 JOptionPane.showMessageDialog(this, resultado);
 
                 txtNomRepar.setText("");
+                txtNomRepar.setBounds(10,10,30,10);
                 cargarPedidosPendientes();
 
             } catch (Exception ex) {
@@ -85,9 +86,19 @@ public class VistaEntrega extends JFrame {
         JButton btnPendientes = new JButton("Ver Pendientes");
         JButton btnEnReparto = new JButton("Ver En Reparto");
 
+        btnPendientes.addActionListener(e->cargarPedidosPendientes());
+        btnEnReparto.addActionListener(e->cargarPedidosEnReparto());
         panelAcciones.add(btnPendientes);
         panelAcciones.add(btnEnReparto);
         add(panelAcciones, BorderLayout.NORTH);
+
+        JPanel panelSur = new JPanel();
+        JLabel lblNomRepar = new JLabel();
+        panelSur.add(lblNomRepar);
+        panelSur.add(txtNomRepar);
+        panelSur.add(btnAsignar);
+        panelSur.add(btnFinalizar);
+        add(panelSur, BorderLayout.SOUTH);
     }
 
     private void cargarPedidosPendientes() {

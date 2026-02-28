@@ -19,20 +19,21 @@ public class VistaMainMenu extends JFrame {
         JPanel panelBotones = new JPanel(new GridLayout(2,2,20,20));
         panelBotones.setBorder(BorderFactory.createEmptyBorder(30,30,30,30));
 
-        JButton btnCrear = new JButton("Crear nuevo Pedido/Cliente");
+        JButton btnCrearPedido = new JButton("Crear Pedido");
+        JButton btnCrearCliente = new JButton("Crear Cliente");
         JButton btnListar = new JButton("Listar (Ver todo / Eliminar)");
-        JButton btnActualizar = new JButton("Actualizar Estado Pedido / Teléfono Cliente)");
-        JButton btmEntregas = new JButton("Gestión de Entregas.");
+        JButton btnEntregas = new JButton("Gestión de Entregas.");
 
-        panelBotones.add(btnCrear);
+        panelBotones.add(btnCrearPedido);
+        panelBotones.add(btnCrearCliente);
         panelBotones.add(btnListar);
-        panelBotones.add(btnActualizar);
-        panelBotones.add(btmEntregas);
+        panelBotones.add(btnEntregas);
 
         add(panelBotones, BorderLayout.CENTER);
 
-        btnCrear.addActionListener(e-> new VistaRegistroPedido().setVisible(true));
-
+        btnCrearPedido.addActionListener(e-> new VistaRegistro("Registrar Pedido").setVisible(true));
+        btnCrearCliente.addActionListener(e-> new VistaRegistro("Registrar Cliente").setVisible(true));
+        btnEntregas.addActionListener(e-> new VistaEntrega().setVisible(true));
         btnListar.addActionListener(e->{
             String[] opciones = {"Pedidos","Clientes", "Cancelar"};
 
