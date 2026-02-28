@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class EntregaDAO {
 
-    public void registrarEntrega(int idPedido, String nomRepartidor) throws SQLException{
+    public void registrarEntrega(int idPedido, int idRepartidor) throws SQLException{
         Connection conn = ConexionBD.obtenerConexion();
         PedidoDAO pediDao = new PedidoDAO();
 
@@ -19,7 +19,7 @@ public class EntregaDAO {
             String sqlInsertEntrega = "INSERT INTO entregas (id_pedido, id_repartidor, fecha, hora) VALUES (?, ?, CURDATE(), CURTIME())";
             try(PreparedStatement ps = conn.prepareStatement(sqlInsertEntrega)){
                 ps.setInt(1,idPedido);
-                ps.setString(2,nomRepartidor);
+                ps.setInt(2,idRepartidor);
                 ps.executeUpdate();
             }
 

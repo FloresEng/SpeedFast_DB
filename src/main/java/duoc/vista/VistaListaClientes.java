@@ -50,6 +50,7 @@ public class VistaListaClientes extends JFrame {
                         ClienteDAO cdao = new ClienteDAO();
                         cdao.actualizar(id, nuevoFono, conn);
                         JOptionPane.showMessageDialog(this, "Teléfono actualizado con éxito.");
+                        cargarDatos();
                     }
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(this,"Error al actualizar: "+ex.getMessage());

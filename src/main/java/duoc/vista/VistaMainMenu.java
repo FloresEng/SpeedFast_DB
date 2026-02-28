@@ -21,8 +21,8 @@ public class VistaMainMenu extends JFrame {
 
         JButton btnCrearPedido = new JButton("Crear Pedido");
         JButton btnCrearCliente = new JButton("Crear Cliente");
-        JButton btnListar = new JButton("Listar (Ver todo / Eliminar)");
-        JButton btnEntregas = new JButton("Gestión de Entregas.");
+        JButton btnListar = new JButton("Listar (Ver Todo / Eliminar)");
+        JButton btnEntregas = new JButton("Gestión de Entregas");
 
         panelBotones.add(btnCrearPedido);
         panelBotones.add(btnCrearCliente);

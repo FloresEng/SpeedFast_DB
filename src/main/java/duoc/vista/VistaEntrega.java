@@ -47,18 +47,17 @@ public class VistaEntrega extends JFrame {
 
             try{
                 int idPedido = (int) model.getValueAt(filaA,0);
-                String nomRepartidor = txtNomRepar.getText().trim();
+                int idRepartidor = Integer.parseInt(txtNomRepar.getText().trim());
 
-                String resultado = ce.iniciarEntrega(idPedido,nomRepartidor);
+                String resultado = ce.iniciarEntrega(idPedido,idRepartidor);
 
                 JOptionPane.showMessageDialog(this, resultado);
 
                 txtNomRepar.setText("");
-                txtNomRepar.setBounds(10,10,30,10);
                 cargarPedidosPendientes();
 
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this,"Error al asignar repartidor.");
+                JOptionPane.showMessageDialog(this,"¡ERROR! Debe ingresar el ID del repartidor (1, 2, 3, etc).");
             }
         });
 
@@ -93,7 +92,7 @@ public class VistaEntrega extends JFrame {
         add(panelAcciones, BorderLayout.NORTH);
 
         JPanel panelSur = new JPanel();
-        JLabel lblNomRepar = new JLabel();
+        JLabel lblNomRepar = new JLabel("ID Repartidor:");
         panelSur.add(lblNomRepar);
         panelSur.add(txtNomRepar);
         panelSur.add(btnAsignar);
@@ -105,30 +104,40 @@ public class VistaEntrega extends JFrame {
         model.setRowCount(0);
         List<Pedido> lista = cp.obtenerTodos();
 
-        for (Pedido p : lista) {
-            //mostramos solo los pendientes
-            if (p.getEstado() == EstadoPedido.PENDIENTE) {
-                model.addRow(new Object[]{
-                        p.getId(),
-                        p.getTipo(),
-                        p.getEstado()
-                });
+        if (lista != null){
+            for (Pedido p : lista) {
+                //mostramos solo los pendientes
+                if (p.getEstado() == EstadoPedido.PENDIENTE) {
+                    model.addRow(new Object[]{
+                            p.getId(),
+                            p.getTipo(),
+                            p.getEstado()
+                    });
+                }
             }
+        }else{
+            JOptionPane.showMessageDialog(this,"No se pudo conectar a la base de datos");
         }
+
     }
 
     private void cargarPedidosEnReparto(){
         model.setRowCount(0);
         List<Pedido> lista = cp.obtenerTodos();
 
-        for (Pedido p : lista){
-            if (p.getEstado() == EstadoPedido.EN_REPARTO){
-                model.addRow(new Object[]{
-                        p.getId(),
-                        p.getTipo(),
-                        p.getEstado()
-                });
+        if (lista != null){
+            for (Pedido p : lista){
+                if (p.getEstado() == EstadoPedido.EN_REPARTO){
+                    model.addRow(new Object[]{
+                            p.getId(),
+                            p.getTipo(),
+                            p.getEstado()
+                    });
+                }
             }
+        }else{
+            JOptionPane.showMessageDialog(this,"No se pudo conectar a la base de datos");
         }
+
     }
 }

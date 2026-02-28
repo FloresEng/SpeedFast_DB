@@ -33,12 +33,12 @@ public class ControladorEntrega {
         }
     }
 
-    public String iniciarEntrega(int idPedido, String nomRepartidor){
+    public String iniciarEntrega(int idPedido, int idRepartidor){
         try{
             if (!pedidosPendientes()){
                 return "¡ERROR!: No existen pedidos pendientes a los que asignar repartidor.";
             }
-            entreDao.registrarEntrega(idPedido,nomRepartidor);
+            entreDao.registrarEntrega(idPedido,idRepartidor);
             return "Entrega registrada e iniciada correctamente.";
         }catch (SQLException e){
             return "Error al procesar la entrega. " + e.getMessage();
